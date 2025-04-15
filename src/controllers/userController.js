@@ -1,3 +1,4 @@
+import { Markup } from "telegraf";
 import { User } from "../models/index.js";
 
 export const userController = {
@@ -19,12 +20,30 @@ export const userController = {
 
       await newUser.save();
 
-      ctx.reply(`Your name is ${first_name}, 
-        Your contact is ${phone_number}, 
-        Your userId is ${user_id}`);
-      return;
+      await ctx.reply(
+        `${first_name}, welcome to ToDo application`,
+        Markup.removeKeyboard()
+      );
+      return ctx.reply(
+        "Lets create ToDo",
+        Markup.keyboard([
+          [Markup.button.text("Create"), Markup.button.text("Find all")],
+        ])
+          .resize()
+          .oneTime()
+      );
     }
-    ctx.reply("You have already used this bot");
-    return;
+    await ctx.reply(
+      `${first_name}, welcome to ToDo application`,
+      Markup.removeKeyboard()
+    );
+    return ctx.reply(
+      "Lets create ToDo",
+      Markup.keyboard([
+        [Markup.button.text("Create"), Markup.button.text("Find all")],
+      ])
+        .resize()
+        .oneTime()
+    );
   },
 };

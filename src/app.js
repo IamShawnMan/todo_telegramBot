@@ -1,7 +1,8 @@
 import { Telegraf } from "telegraf";
 import dotnev from "dotenv";
-import { askContact } from "./commands/userCommands.js";
+import { askContact, askTodo } from "./commands/userCommands.js";
 import { userController } from "./controllers/userController.js";
+import { todoController } from "./controllers/todoController.js";
 
 dotnev.config();
 const token = process.env.BOT_TOKEN;
@@ -13,5 +14,8 @@ bot.start((ctx) => {
 });
 
 bot.on("contact", userController.create);
+bot.hears("Create", (ctx) => {
+  askTodo(ctx);
+});
 
 export default bot;

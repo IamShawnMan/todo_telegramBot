@@ -1,4 +1,5 @@
 import { Markup } from "telegraf";
+const userSteps = new Map();
 
 export const askContact = (ctx) => {
   return ctx.reply(
@@ -7,4 +8,10 @@ export const askContact = (ctx) => {
       .oneTime()
       .resize()
   );
+};
+
+export const askTodo = async (ctx) => {
+  await ctx.reply("Input title for ToDo");
+  userSteps.set(ctx.from.id, "awaiting_todo_title");
+  return ctx.reply(`You said ${input}`);
 };
